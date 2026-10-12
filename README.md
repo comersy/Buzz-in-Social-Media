@@ -1,21 +1,21 @@
 # Buzz in Social Media
 
-Projet basé sur le dataset UCI [Buzz in Social Media](https://archive.ics.uci.edu/dataset/248/buzz+in+social+media).
+Project based on the UCI [Buzz in Social Media](https://archive.ics.uci.edu/dataset/248/buzz+in+social+media) dataset.
 
-## Récupérer le dataset
+## Getting the dataset
 
-Les fichiers `.data` (≈ 300 Mo au total) ne sont pas versionnés : ils dépassent la limite de 100 Mo par fichier de GitHub.
-Pour les télécharger et les placer au bon endroit :
+The `.data` files (≈ 300 MB in total) are not versioned: they exceed GitHub's 100 MB per-file limit.
+To download them and put them in the right place:
 
 ```bash
 python download_dataset.py
 ```
 
-Fichiers obtenus :
+Resulting files:
 
 - `buzz+in+social+media/regression/regression/Twitter/Twitter.data`
 - `buzz+in+social+media/regression/regression/TomsHardware/TomsHardware.data`
 
-Les descriptions des colonnes (`*.names`) sont incluses dans le dépôt.
+The column descriptions (`*.names`) are included in the repository.
 
-Téléchargement manuel possible depuis la page UCI ci-dessus.
+You can also download the dataset manually from the UCI page above.
