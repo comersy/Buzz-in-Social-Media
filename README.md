@@ -1,35 +1,35 @@
 # Buzz in Social Media
 
-Analysis of the UCI [Buzz in Social Media](https://archive.ics.uci.edu/dataset/248/buzz+in+social+media) dataset, by Côme Rossary and Batiste Fancellu.
+Analyse du dataset UCI [Buzz in Social Media](https://archive.ics.uci.edu/dataset/248/buzz+in+social+media), par Côme Rossary et Batiste Fancellu.
 
-Each row is a topic (a tech keyword) followed over a few weeks on one of two networks, Twitter or the Tom's Hardware forum, with a dozen activity indicators per time step. The target is the topic's popularity over the following weeks: active discussions on Twitter, page views on the forum. The whole analysis is in [notebook.ipynb](notebook.ipynb), in French.
+Chaque ligne est un sujet (un mot-clé tech) suivi pendant quelques semaines sur l'un de deux réseaux, Twitter ou le forum Tom's Hardware, avec une douzaine d'indicateurs d'activité par pas de temps. La cible est la popularité du sujet sur les semaines suivantes : discussions actives sur Twitter, pages vues sur le forum. Toute l'analyse est dans [notebook.ipynb](notebook.ipynb).
 
-## What we found
+## Ce qu'on a trouvé
 
-**Tomorrow looks like today.** Predicting the last observed value already explains 89 % of the variance (in log) on Twitter and 98 % on the forum. Fitting a trend over the window and extrapolating it, linearly or exponentially, does worse: the series are short and noisy, and extrapolation amplifies the noise.
+**Demain ressemble à aujourd'hui.** Prédire la dernière valeur observée explique déjà 89 % de la variance (en log) sur Twitter et 98 % sur le forum. Ajuster une tendance sur la fenêtre et l'extrapoler, linéairement ou exponentiellement, fait moins bien : les séries sont courtes et bruitées, et l'extrapolation amplifie le bruit.
 
-**The other indicators help, mostly on Twitter.** A gradient boosting on all columns cuts the error by 29 % on Twitter and 19 % on the forum. A linear regression on log-transformed attributes gets almost the same score, so the relationship is roughly additive in log scale and the remaining error sits in the data, not in the model.
+**Les autres indicateurs aident, surtout sur Twitter.** Un gradient boosting sur toutes les colonnes réduit l'erreur de 29 % sur Twitter et de 19 % sur le forum. Une régression linéaire sur les attributs passés en log obtient presque le même score : la relation est à peu près additive en échelle log, et l'erreur restante vient des données, pas du modèle.
 
-**Twitter buzz is one thing: volume.** Discussions, authors, contributions and attention share are all the same signal, because a discussion there is usually a single tweet. Popularity is volatile: it typically moves by about 40 % from one step to the next.
+**Le buzz Twitter, c'est une seule chose : le volume.** Discussions, auteurs, contributions et part d'attention sont le même signal, parce qu'une discussion y est le plus souvent un tweet unique. La popularité est volatile : elle bouge typiquement de 40 % d'un pas au suivant.
 
-**Forum buzz is two things: writing and reading.** Threads, posts and authors form one block, mostly zero. Page views are another, almost never zero and extremely persistent (0.99 from one step to the next). The target is reading, and writing tells you little about it. Popularity moves by about 18 % a step.
+**Le buzz du forum, c'est deux choses : l'écriture et la lecture.** Fils, messages et auteurs forment un bloc, le plus souvent à zéro. Les pages vues en forment un autre, presque jamais nul et extrêmement persistant (0,99 d'un pas au suivant). La cible est la lecture, et l'écriture en dit peu. La popularité bouge d'environ 18 % par pas.
 
-**The two networks can be told apart from the shape of a topic's popularity curve alone**, once scale, activity density and discussion structure are removed (AUC 0.82). What separates them is not the trend, which rises on both by construction of the dataset, but the volatility.
+**Les deux réseaux se reconnaissent à la seule forme de la courbe de popularité d'un sujet**, une fois retirées l'échelle, la densité d'activité et la structure des discussions (AUC 0,82). Ce qui les sépare n'est pas la tendance, qui monte sur les deux par construction du dataset, mais la volatilité.
 
-## Getting the dataset
+## Récupérer le dataset
 
-The `.data` files (≈ 300 MB in total) are not versioned: they exceed GitHub's 100 MB per-file limit.
-To download them and put them in the right place:
+Les fichiers `.data` (≈ 300 Mo au total) ne sont pas versionnés : ils dépassent la limite de 100 Mo par fichier de GitHub.
+Pour les télécharger et les placer au bon endroit :
 
 ```bash
 python download_dataset.py
 ```
 
-Resulting files:
+Fichiers obtenus :
 
 - `buzz+in+social+media/regression/regression/Twitter/Twitter.data`
 - `buzz+in+social+media/regression/regression/TomsHardware/TomsHardware.data`
 
-The column descriptions (`*.names`) are included in the repository.
+Les descriptions des colonnes (`*.names`) sont incluses dans le dépôt.
 
-You can also download the dataset manually from the UCI page above.
+Le dataset peut aussi être téléchargé à la main depuis la page UCI ci-dessus.
