@@ -1,2 +1,3 @@
 # Dataset UCI (trop volumineux pour GitHub) : voir README.md / download_dataset.py
 buzz+in+social+media/**/*.data
+__pycache__/
